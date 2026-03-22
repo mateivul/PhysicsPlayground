@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import Toolbar from "./components/Toolbar.jsx";
 
 const defaults = {
     gravity: 0.3,
@@ -76,9 +77,8 @@ export default function App() {
                 physics playground - [space]=pause [1-4]=tools/actions
             </div>
             <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
-                <div style={{ width: 44, background: "var(--bg--panel", borderRight: "1px solid var(--border)" }}>
-                    {/* {toolbar} */}
-                </div>
+                <Toolbar tool={tool} setTool={changeTool} running={running} onTogglePause={togglePause} />
+
                 <div style={{ flex: 1, background: "#111" }}>{/* {canvas} */}</div>
                 <div
                     style={{
