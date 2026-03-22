@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import Toolbar from "./components/Toolbar.jsx";
+import Controls from "./components/Controls.jsx";
 
 const defaults = {
     gravity: 0.3,
@@ -87,9 +88,30 @@ export default function App() {
                         flexDirection: "column",
                         background: "var(--bg--panel)",
                         borderLeft: "1px solid var(--border)",
+                        overflow: "hidden",
                     }}
                 >
-                    {/* {controls} */}
+                    <Controls
+                        params={params}
+                        onParam={changeParam}
+                        ballSize={ballSize}
+                        onSize={changeBallSize}
+                        showTrails={showTrails}
+                        showGrid={showGrid}
+                        running={running}
+                        onToggleTrails={() => {
+                            showTrailsRef.current = !showTrails;
+                            setShowTrails(!showTrails);
+                        }}
+                        onToggleGrid={() => {
+                            showGridRef.current = !showGrid;
+                            setShowGrid(!showGrid);
+                        }}
+                        onTogglePause={togglePause}
+                        onClearBalls={() => clearBallsRef.current?.()}
+                        onClearObstacles={() => clearObstaclesRef.current?.()}
+                        onClearAll={() => clearAllRef.current?.()}
+                    />
                     {/* {info panel} */}
                 </div>
             </div>
