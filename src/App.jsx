@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import Toolbar from "./components/Toolbar.jsx";
 import Controls from "./components/Controls.jsx";
 import InfoPanel from "./components/InfoPanel.jsx";
+import Canvas from "./components/Canvas.jsx";
 
 const defaults = {
     gravity: 0.3,
@@ -81,7 +82,22 @@ export default function App() {
             <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
                 <Toolbar tool={tool} setTool={changeTool} running={running} onTogglePause={togglePause} />
 
-                <div style={{ flex: 1, background: "#111" }}>{/* {canvas} */}</div>
+                <div style={{ flex: 1, background: "#111" }}>
+                    <Canvas
+                        tool={tool}
+                        toolRef={toolRef}
+                        paramsRef={paramsRef}
+                        ballSizeRef={ballSizeRef}
+                        showTrailsRef={showTrailsRef}
+                        showGridRef={showGridRef}
+                        runnningRef={runningRef}
+                        onTogglePause={togglePause}
+                        onSizeScroll={(v) => changeBallSize(ballSizeRef.current + v)}
+                        onClearBallsRef={clearBallsRef}
+                        onClearObstaclesRef={clearObstaclesRef}
+                        onClearAllRef={clearAllRef}
+                    />
+                </div>
                 <div
                     style={{
                         width: 175,
