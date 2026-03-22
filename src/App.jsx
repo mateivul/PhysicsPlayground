@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Toolbar from "./components/Toolbar.jsx";
 import Controls from "./components/Controls.jsx";
+import InfoPanel from "./components/InfoPanel.jsx";
 
 const defaults = {
     gravity: 0.3,
@@ -112,7 +113,7 @@ export default function App() {
                         onClearObstacles={() => clearObstaclesRef.current?.()}
                         onClearAll={() => clearAllRef.current?.()}
                     />
-                    {/* {info panel} */}
+                    <InfoPanel />
                 </div>
             </div>
         </div>
