@@ -1,16 +1,29 @@
-# React + Vite
+# PhysicsPlayground
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a 2d sandbox I built to mess around with and learn to put physics concepts in code.
+You can throw balls around, draw obstacles, watch how stuff moves, and change the physics params to make it more interesting.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+You can launch a ball by clicking and dragging on the canvas; pull back like a slingshot. Right-click anywhere to just drop one with a radnom velocity. Draw lines with draw tool and send balls into them to see them bounce off. You can erase with the erase toll. And you can select a ball to see stats about it (position and velocity) and you can also move it around.
 
-## React Compiler
+## Controls - keybinds
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- [1] launch, [2] draw, [3] erase, [4] select
+- [space] pause/resume
+- [c] clears everything
+- [delete] removes selected ball
+- scroll wheel changes ball size
 
-## Expanding the ESLint configuration
+The sliders on the right control gravity, friction, and how elastic(bouncy) things are.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+This was built with react + vite, no physics library, just pure math.
+
+### To run after cloning
+
+```
+npm install
+npm run dev
+```
