@@ -23,7 +23,7 @@ export default function Toolbar({ tool, setTool, running, onTogglePause }) {
                 gap: 2,
                 padding: "8px 8px",
                 borderRight: "1px solid var(--border)",
-                background: "va(--bg-panle",
+                background: "va(--bg-panle)",
             }}
         >
             <button style={s(tool === "launch")} title="launch [1]" onClick={() => setTool("launch")}>

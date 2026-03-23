@@ -1,7 +1,8 @@
 import { closestPointOnSegment } from "./geometry.js";
 
 export function detectBallCollisions(balls, ballRestitution) {
-    //only if the distance form centers is larger than the sum of radius
+    //only if the distance form centers is lower than the sum of radius
+    // and if dist form ceneter to segment is less than 1 radius
     for (let i = 0; i < balls.length; i++) {
         for (let j = i + 1; j < balls.length; j++) {
             const a = balls[i];
@@ -27,16 +28,16 @@ export function detectBallCollisions(balls, ballRestitution) {
 
                 a.vx -= impulse * b.mass * nx;
                 a.vy -= impulse * b.mass * ny;
-                b.vx -= impulse * a.mass * nx;
-                b.vy -= impulse * a.maxx * ny;
+                b.vx += impulse * a.mass * nx;
+                b.vy += impulse * a.mass * ny;
 
                 const overlap = minDist - dist;
                 const separateX = (overlap / 2 + 0.5) * nx;
                 const separateY = (overlap / 2 + 0.5) * ny;
                 a.x -= separateX;
                 a.y -= separateY;
-                b.x -= separateX;
-                b.y -= separateY;
+                b.x += separateX;
+                b.y += separateY;
             }
         }
     }

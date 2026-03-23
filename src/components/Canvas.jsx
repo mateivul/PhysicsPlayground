@@ -49,7 +49,7 @@ export default function Canvas({
             vx,
             vy,
             radius: r,
-            maxx: Math.max(1, (r / 15) * (r / 15)),
+            mass: Math.max(1, (r / 15) * (r / 15)),
             color: randColor(),
             trail: [],
         });

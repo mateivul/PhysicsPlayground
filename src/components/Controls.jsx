@@ -1,7 +1,7 @@
 //right side controls for physics parameters and other actions
 function Slider({ label, value, min, max, step, unit = "", onChange }) {
     return (
-        <div style={{ display: " flex", flexDirection: "column", gap: 5 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
             <span style={{ color: "#888" }}>
                 {label}
                 <span style={{ fontFamily: "'JetBrains Mono', monospace", color: "#ccc" }}>
@@ -48,7 +48,7 @@ export default function Controls({
                 width: "100%",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "#ccc")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = dim ? "#444" : "$888")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = dim ? "#444" : "#888")}
         >
             {label}
         </button>
@@ -100,7 +100,7 @@ export default function Controls({
                 step={0.05}
                 onChange={(v) => onParam("ballRestitution", v)}
             />
-            <div style={{ hieght: 14 }} />
+            <div style={{ height: 14 }} />
             <Slider label="ball size" value={ballSize} min={8} max={40} step={1} unit="px" onChange={onSize} />
             <div style={{ height: 12 }} />
 
@@ -117,7 +117,7 @@ export default function Controls({
                     marginBottom: 10,
                 }}
             >
-                {running ? "❚❚ puase" : "▶ play"}
+                {running ? "❚❚ pause" : "▶ play"}
             </button>
 
             {btn(`${showTrails ? "[x]" : "[]"} trails`, onToggleTrails)}

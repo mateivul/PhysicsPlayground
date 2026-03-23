@@ -19,7 +19,7 @@ export function updateBall(ball, params, canvasW, canvasH) {
     if (ball.y + ball.radius > canvasH) {
         ball.y = canvasH - ball.radius;
         ball.vy = -ball.vy * restitution;
-        ball.vx = 0.98;
+        ball.vx *= 0.98;
         if (Math.abs(ball.vy) < 0.5) ball.vy = 0;
     }
     if (ball.y - ball.radius < 0) {

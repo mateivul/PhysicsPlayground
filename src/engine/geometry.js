@@ -6,7 +6,7 @@ export function closestPointOnSegment(px, py, x1, y1, x2, y2) {
 
     if (lenSq === 0) return { x: x1, y: y1 };
 
-    let t = ((px - x1) * dx + (py - y1 * dy)) / lenSq;
+    let t = ((px - x1) * dx + (py - y1) * dy) / lenSq;
     t = Math.max(0, Math.min(1, t));
 
     return {

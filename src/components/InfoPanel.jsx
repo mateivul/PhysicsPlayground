@@ -6,7 +6,7 @@ export default function InfoPanel() {
             </div>
             <div
                 id="info-selected"
-                style={{ marginTop: 6, color: "$555", fontFamily: "'JetBrains Mono' , monospace", lineHeight: 1.7 }}
+                style={{ marginTop: 6, color: "#555", fontFamily: "'JetBrains Mono' , monospace", lineHeight: 1.7 }}
             ></div>
         </div>
     );
