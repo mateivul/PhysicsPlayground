@@ -294,7 +294,6 @@ export default function Canvas({
     function onTouchStart(e) {
         e.preventDefault();
         const t = e.touches[0];
-        const r = canvasRef.current.getBoundingClientRect();
         onDown({ button: 0, clientX: t.clientX, clientY: t.clientY, preventDefault: () => {} });
     }
 
@@ -430,8 +429,8 @@ function render(
 
         const spd = Math.sqrt(l.vx * l.vx + l.vy * l.vy);
         if (spd > 0.1) {
-            const ex = (l.ballX = l.vx * 8),
-                ey = (l.ballY = l.vy * 8);
+            const ex = l.ballX + l.vx * 8,
+                ey = l.ballY + l.vy * 8;
             const ang = Math.atan2(l.vy, l.vx);
             ctx.beginPath();
             ctx.moveTo(l.ballX, l.ballY);
@@ -451,7 +450,7 @@ function render(
             const pts = predictTrajectory(l.ballX, l.ballY, l.vx, l.vy, gravity, 90);
             for (const p of pts) {
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, 1.5, 0, Math.Pi * 2);
+                ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
                 ctx.fillStyle = "rgba(255,255,255,0.6)";
                 ctx.fill();
             }

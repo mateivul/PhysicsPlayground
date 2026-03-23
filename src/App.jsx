@@ -25,8 +25,8 @@ export default function App() {
     const [ballSize, setBallSize] = useState(15);
     const ballSizeRef = useRef(15);
 
-    const [showGrid, setShowGrid] = useState(false);
-    const showGridRef = useRef(false);
+    const [showGrid, setShowGrid] = useState(true);
+    const showGridRef = useRef(true);
 
     const [running, setRunning] = useState(true);
     const runningRef = useRef(true);
