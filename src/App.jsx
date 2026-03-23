@@ -82,7 +82,7 @@ export default function App() {
             <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
                 <Toolbar tool={tool} setTool={changeTool} running={running} onTogglePause={togglePause} />
 
-                <div style={{ flex: 1, background: "#111" }}>
+                <div style={{ flex: 1, background: "#111", overflow: "hidden" }}>
                     <Canvas
                         tool={tool}
                         toolRef={toolRef}
@@ -90,7 +90,7 @@ export default function App() {
                         ballSizeRef={ballSizeRef}
                         showTrailsRef={showTrailsRef}
                         showGridRef={showGridRef}
-                        runnningRef={runningRef}
+                        runningRef={runningRef}
                         onTogglePause={togglePause}
                         onSizeScroll={(v) => changeBallSize(ballSizeRef.current + v)}
                         onClearBallsRef={clearBallsRef}
@@ -103,7 +103,7 @@ export default function App() {
                         width: 175,
                         display: "flex",
                         flexDirection: "column",
-                        background: "var(--bg--panel)",
+                        background: "var(--bg-panel)",
                         borderLeft: "1px solid var(--border)",
                         overflow: "hidden",
                     }}

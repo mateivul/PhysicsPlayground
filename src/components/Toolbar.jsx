@@ -7,7 +7,7 @@ const s = (active) => ({
     background: active ? "#222" : "transparent",
     color: active ? "#ccc" : "#555",
     fontSize: 16,
-    dispaly: "flex",
+    display: "flex",
     alignItems: "center",
     justifyContent: "center",
 });

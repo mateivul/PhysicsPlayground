@@ -16,9 +16,9 @@ export default function Canvas({
     toolRef,
     paramsRef,
     ballSizeRef,
-    showTrailRef,
+    showTrailsRef,
     showGridRef,
-    runnningRef,
+    runningRef,
     onTogglePause,
     onSizeScroll,
     onClearBallsRef,
@@ -61,13 +61,13 @@ export default function Canvas({
 
     function eraseAt(mx, my) {
         const w = world.current;
-        for (let i = W.balls.length - 1; i >= 0; i--) {
-            const b = W.balls[i];
+        for (let i = w.balls.length - 1; i >= 0; i--) {
+            const b = w.balls[i];
             const dx = b.x - mx,
                 dy = b.y - my;
             if (Math.sqrt(dx * dx + dy * dy) < b.radius + 8) {
                 if (selected.current === b.id) selected.current = null;
-                W.balls.splice(i, 1);
+                w.balls.splice(i, 1);
                 return;
             }
         }
@@ -152,7 +152,7 @@ export default function Canvas({
                 1000 / (frameTimes.current.reduce((a, b) => a + b, 0) / frameTimes.current.length),
             );
 
-            if (runnningRef.current) {
+            if (runningRef.current) {
                 const dragId = dragging.current?.ball?.id;
                 for (const ball of w.balls) {
                     if (ball.id !== dragId) updateBall(ball, params, width, height);
@@ -167,8 +167,8 @@ export default function Canvas({
                 w,
                 width,
                 height,
-                runnningRef.current,
-                showTrailRef.current,
+                runningRef.current,
+                showTrailsRef.current,
                 showGridRef.current,
                 launching.current,
                 drawing.current,
@@ -187,12 +187,12 @@ export default function Canvas({
 
     useEffect(() => {
         function onKey(e) {
-            if (e.targer.tagName === "INPUT") return;
+            if (e.target.tagName === "INPUT") return;
             if (e.code === "Space") {
                 e.preventDefault();
                 onTogglePause();
             }
-            if (e.code === "Delet" || e.code === "Backspace") {
+            if (e.code === "Delete" || e.code === "Backspace") {
                 if (selected.current) {
                     world.current.balls = world.current.balls.filter((b) => b.id !== selected.current);
                     selected.current = null;
@@ -221,7 +221,7 @@ export default function Canvas({
         if (t === "launch") launching.current = { ballX: x, ballY: y, vx: 0, vy: 0 };
         else if (t === "draw") drawing.current = { x1: x, y1: y, x2: x, y2: y };
         else if (t === "erase") eraseAt(x, y);
-        else if (t === "select") selectAt(x, t);
+        else if (t === "select") selectAt(x, y);
     }
 
     function onMove(e) {
@@ -232,7 +232,7 @@ export default function Canvas({
             const l = launching.current;
             const dx = l.ballX - x,
                 dy = l.ballY - y;
-            const spd = Math.min(Math.sqrt(dx * dx + dy * dy) * 0, 12, 18);
+            const spd = Math.min(Math.sqrt(dx * dx + dy * dy) * 0.12, 18);
             const ang = Math.atan2(dy, dx);
             l.vx = spd * Math.cos(ang);
             l.vy = spd * Math.sin(ang);
@@ -285,16 +285,16 @@ export default function Canvas({
         if (drawing.current) {
             const d = drawing.current;
             const len = Math.sqrt((d.x2 - d.x1) ** 2 + (d.y2 - d.y1) ** 2);
-            if (len > 20) addObstacle(d.x1, d.y1, d.x1, d.y2);
+            if (len > 20) addObstacle(d.x1, d.y1, d.x2, d.y2);
             drawing.current = null;
         }
-        drawing.current = null;
+        dragging.current = null;
     }
 
     function onTouchStart(e) {
         e.preventDefault();
         const t = e.touches[0];
-        const r = canvasRef.current.getboundingClientRect();
+        const r = canvasRef.current.getBoundingClientRect();
         onDown({ button: 0, clientX: t.clientX, clientY: t.clientY, preventDefault: () => {} });
     }
 
@@ -304,7 +304,7 @@ export default function Canvas({
         onMove({ clientX: t.clientX, clientY: t.clientY });
     }
 
-    const cursors = { launch: "crosshair", draw: "drosshair", erase: "cell", select: "pointer" };
+    const cursors = { launch: "crosshair", draw: "crosshair", erase: "cell", select: "pointer" };
 
     return (
         <canvas
@@ -331,7 +331,7 @@ export default function Canvas({
 
 function updateInfo(world, fps, selectedId) {
     const stats = document.getElementById("info-stats");
-    if (stats) stats.textContent = `${world.balls.lenght} balls ~ ${fps} fps`;
+    if (stats) stats.textContent = `${world.balls.length} balls ~ ${fps} fps`;
 
     const sel = document.getElementById("info-selected");
     if (!sel) return;
@@ -401,11 +401,12 @@ function render(
             ctx.lineWidth = b.radius * 0.6;
             ctx.lineCap = "round";
             ctx.lineJoin = "round";
+            ctx.stroke();
         }
     }
 
     for (const b of world.balls) {
-        const hover = eraseHover?.type === "ball" && eraseHover.if === b.id;
+        const hover = eraseHover?.type === "ball" && eraseHover.id === b.id;
         ctx.beginPath();
         ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
         ctx.fillStyle = hover ? "#f87171" : b.color;
@@ -464,7 +465,7 @@ function render(
         ctx.lineTo(d.x2, d.y2);
         ctx.strokeStyle = "rgba(255,255,255,0.6)";
         ctx.lineWidth = 2;
-        ctx.ctx.setLineDash([5, 5]);
+        ctx.setLineDash([5, 5]);
         ctx.stroke();
         ctx.setLineDash([]);
     }
